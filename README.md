@@ -1,64 +1,145 @@
-# CodeIgniter 4 Application Starter
+> ### CodeIgniter4 codebase containing real world examples api (CRUD, auth, advanced patterns, etc).
 
-## What is CodeIgniter?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+### [Demo](http://codeigniter4-realworld-api.herokuapp.com/)
 
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+This codebase was created to demonstrate a fully functional REST API built with **CodeIgniter4**, including CRUD operations, authentication, routing, pagination, and more.
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+Hope you'll find this example helpful. Pull requests are welcome!
 
-## Installation & updates
+----------
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+# Getting started
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Installation
 
-## Setup
+Please check the official CodeIgniter4 installation guide for server requirements before you start. [Official Documentation](https://codeigniter4.github.io/userguide/installation/index.html)
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
 
-## Important Change with index.php
+Clone the repository
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+    git clone https://github.com/agungsugiarto/codeigniter4-realworld-api.git
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Switch to the repo folder
 
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
+    cd codeigniter4-realworld-api
 
-## Repository Management
+Install all the dependencies using composer
 
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+    composer install
 
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
+Copy the example env file and make the required configuration changes in the .env file
 
-## Server Requirements
+    cp .env.example .env
 
-PHP version 7.2 or higher is required, with the following extensions installed: 
+Run the database migrations (**Set the database connection in .env before migrating**)
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+    php spark migrate
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+Start the local development server
 
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+    php spark serve
+
+You can now access the server at http://localhost:8080
+
+**TL;DR command list**
+
+    git https://github.com/agungsugiarto/codeigniter4-realworld-api.git
+    cd codeigniter4-realworld-api
+    composer install
+    cp .env.example .env
+    
+**Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
+
+    php spark migrate
+    php spark serve
+
+## Database seeding
+
+**Populate the database with seed data with relationships which includes users, articles, comments, tags, favorites and follows. This can help you to quickly start testing the api or couple a frontend and start using it with ready content.**
+
+Run the database seeder and you're done
+
+    php spark db:seed DatabaseSeeder
+
+***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
+
+    php spark migrate:refresh
+
+## API Specification
+
+> [Full API Spec](https://documenter.getpostman.com/view/1062493/TVYKYvnz)
+
+----------
+
+# Code overview
+
+## Dependencies
+
+- [codeigniter4-cors](https://github.com/agungsugiarto/codeigniter4-cors) - For handling Cross-Origin Resource Sharing (CORS)
+- [codeigniter4-repository](https://github.com/agungsugiarto/codeigniter4-repository) - For Implementation of repository pattern for CodeIgniter 4
+- [league/fractal](https://github.com/thephpleague/fractal) - For provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON
+- [firebase/php-jwt](https://github.com/firebase/php-jwt) - For authentication using JSON Web Tokens
+
+## Folders
+
+- `app/Config` - Contains all the application configuration files
+- `app/Controllers` - Contains all the api controllers
+- `app/Criteria` - Contains all the criteria are a way to build up specific query conditions
+- `app/Database/Migrations` - Contains all the database migrations
+- `app/Database/Seeds` - Contains the database seeder
+- `app/Entities` - Contains all the classes as a first-class citizen in it’s database layer
+- `app/Filters` - Contains the JWT auth filter and throttler
+- `app/Models` - Contains all the models
+- `app/Repository` - Contains all the repository object
+- `app/Scopes` - Contains all the repository define which fields can be used to scope your queries by setting $searchable property
+- `app/Transformers` - Contains all transformer output JSON
+- `routes` - Contains all the api routes defined in `api.php` file
+
+## Environment variables
+
+- `.env` - Environment variables can be set in this file
+
+***Note*** : You can quickly set the database information and other variables in this file and have the application fully working.
+
+----------
+
+# Testing API
+
+Run the CodeIgniter4 development server
+
+    php spark serve
+
+The api can now be accessed at
+
+    http://localhost:8080/api
+
+Request headers
+
+| **Required** 	| **Key**              	| **Value**            	|
+|----------	|------------------	|------------------	|
+| Yes      	| Content-Type     	| application/json 	|
+| Yes      	| X-Requested-With 	| XMLHttpRequest   	|
+| Optional 	| Authorization    	| Token {JWT}      	|
+
+Refer the [api specification](#api-specification) for more info.
+
+----------
+ 
+# Authentication
+ 
+This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication filter handles the validation and authentication of the token. Please check the following sources to learn more about JWT.
+ 
+- https://jwt.io/introduction/
+- https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
+
+----------
+
+# Cross-Origin Resource Sharing (CORS)
+ 
+This applications has CORS enabled by default on all API endpoints. The CORS allowed origins can be changed by setting them in the config file. Please check the following sources to learn more about CORS.
+ 
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+- https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+- https://www.w3.org/TR/cors
