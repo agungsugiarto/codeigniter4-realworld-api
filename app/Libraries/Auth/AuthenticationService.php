@@ -89,7 +89,7 @@ class AuthenticationService
             $token = \trim((string) \preg_replace('/^(?:\s+)?Token\s/', '', $header));
 
             try {
-                $docoded = JWT::decode($token, config('encryption')->key, ['HS256']);
+                $docoded = JWT::decode($token, config('Encryption')->key, ['HS256']);
             } catch (\Exception $e) {
                 return null;
             }
