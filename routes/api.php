@@ -49,15 +49,15 @@ $routes->group('api', function (Routes $routes) {
         /**
          * Comments
          */
-        $routes->post('comments', CommentController::class . '::store/$1', ['filter' => 'api']);
-        $routes->get('comments',  CommentController::class . '::index/$1', ['filter' => 'api']);
-        $routes->delete('comments/(:num)', CommentController::class . '::destroy/$1/$2', ['filter' => 'api']);
+        $routes->post('(:any)/comments', CommentController::class . '::store/$1', ['filter' => 'api']);
+        $routes->get('(:any)/comments',  CommentController::class . '::index/$1', ['filter' => 'api']);
+        $routes->delete('(:any)/comments/(:num)', CommentController::class . '::destroy/$1/$2', ['filter' => 'api']);
 
         /**
          * Favorites
          */
-        $routes->post('favorite', ArticleController::class . '::addFavorite/$1', ['filter' => 'api']);
-        $routes->delete('favorite', ArticleController::class . '::unFavorite/$1', ['filter' => 'api']);
+        $routes->post('(:any)/favorite', ArticleController::class . '::addFavorite/$1', ['filter' => 'api']);
+        $routes->delete('(:any)/favorite', ArticleController::class . '::unFavorite/$1', ['filter' => 'api']);
     });
 
     /**
