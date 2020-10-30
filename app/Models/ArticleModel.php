@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Models;
+
+use App\Entities\ArticleEntity;
+use CodeIgniter\I18n\Time;
+use CodeIgniter\Model;
+use Config\Services;
+
+class ArticleModel extends Model
+{
+    protected $table = 'articles';
+    protected $primaryKey = 'id';
+    protected $returnType = ArticleEntity::class;
+    protected $allowedFields = ['user_id', 'slug', 'title', 'description', 'body'];
+    protected $useTimestamps = true;
+    protected $skipValidation = true;
+
+    /**
+     * Generate fake data.
+     *
+     * @param \Faker\Generator $faker
+     * @return array
+     */
+    public function fake($faker)
+    {
+        return [
+            'user_id'     => $faker->numberBetween(1, 50),
+            'title'       => $title = $faker->sentence,
+            'slug'        => url_title($title, '-', true),
+            'description' => $faker->sentence(10),
+            'body'        => $faker->paragraphs($faker->numberBetween(1, 3), true),
+        ];
+    }
+
+    /**
+     * Insert article.
+     *
+     * @param object $request
+     * @return mixed
+     */
+    public function insertArticle(object $request)
+    {
+        return $this->insert([
+            'user_id'     => Services::auth()->user()->id,
+            'title'       => $request->title,
+            'slug'        => url_title($request->title, '-', true),
+            'body'        => $request->body,
+            'description' => $request->description,
+        ]);
+    }
+
+    /**
+     * Update article.
+     *
+     * @param object $request
+     * @param string $slug
+     * @return mixed
+     */
+    public function updateArticle(object $request, string $slug)
+    {
+        return $this->where('slug', $slug)->set([
+            'user_id'     => Services::auth()->user()->id,
+            'title'       => $request->title,
+            'slug'        => url_title($request->title, '-', true),
+            'body'        => $request->body,
+            'description' => $request->description,
+        ])->update();
+    }
+
+    /**
+     * Insert article tag id.
+     *
+     * @param array $tags
+     * @param string $slug
+     * @return int
+     */
+    public function insertArticleTags(array $tags, int $tagID)
+    {
+        foreach ($tags as $tag) {
+            $tagsKey[] = [
+                'article_id' => $tagID,
+                'tag_id'     => is_object($tag) ? $tag->id : $tag,
+                'created_at' => Time::now(),
+                'updated_at' => Time::now(),
+            ];
+        }
+
+        return $this->db->table('article_tag')->insertBatch($tagsKey);
+    }
+
+    /**
+     * Update article tag id.
+     *
+     * @param array tags
+     * @param string $slug
+     * @return mixed
+     */
+    public function updateArticleTags(array $tags, string $slug)
+    {
+        $tagID = $this->where('slug', $slug)->first()->id;
+        $this->db->table('article_tag')->where('article_id', $tagID)->delete();
+
+        return $this->insertArticleTags($tags, $tagID);
+    }
+}
