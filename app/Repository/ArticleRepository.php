@@ -92,7 +92,7 @@ class ArticleRepository extends BaseRepository
             users.username,
             users.bio,
             users.image,
-            array_to_string(array_agg(groups_menu.group_id), ',') AS tags
+            array_to_string(array_agg(tags.title), ',') AS tags
         "];
     }
 }

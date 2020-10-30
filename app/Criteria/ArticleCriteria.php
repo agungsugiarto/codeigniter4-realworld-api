@@ -16,6 +16,11 @@ class ArticleCriteria implements CriterionInterface
             ->join('users', 'articles.user_id = users.id')
             ->join('article_tag', 'article_tag.article_id = articles.id', 'left')
             ->join('tags', 'article_tag.tag_id = tags.id', 'left')
-            ->groupBy('articles.id');
+            ->groupBy([
+                'articles.id',
+                'users.username',
+                'users.bio',
+                'users.image'
+            ]);
     }
 }
