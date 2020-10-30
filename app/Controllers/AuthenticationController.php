@@ -43,6 +43,8 @@ class AuthenticationController extends Controller
             'email'    => 'required|is_unique[users.email]|valid_email',
             'username' => 'required|is_unique[users.username]|alpha_numeric',
             'password' => 'required|min_length[5]',
+            'bio'      => 'if_exist|min_length[5]',
+            'image'    => 'if_exist|valid_url'
         ];
 
         if (! $this->validate($rules)) {

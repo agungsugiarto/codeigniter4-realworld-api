@@ -37,15 +37,14 @@ $routes->group('api', function (Routes $routes) {
     /**
      * Articles
      */
-    $routes->get('articles', ArticleController::class . '::index');
-    $routes->post('articles/create', ArticleController::class . '::store', ['filter' => 'api']);
-    $routes->get('articles/feed', ArticleController::class . '::feed', ['filter' => 'api']);
-
-    $routes->group('articles/([^/]+)', function (Routes $routes) {
-
-        $routes->get('/', ArticleController::class . '::show/$1');
-        $routes->put('/', ArticleController::class . '::update/$1', ['filter' => 'api']);
-        $routes->delete('/', ArticleController::class . '::destroy/$1', ['filter' => 'api']);
+    $routes->group('articles', function (Routes $routes) {
+        
+        $routes->get('/', ArticleController::class . '::index');
+        $routes->get('feed', ArticleController::class . '::feed', ['filter' => 'api']);
+        $routes->post('create', ArticleController::class . '::store', ['filter' => 'api']);
+        $routes->get('(:any)/show', ArticleController::class . '::show/$1');
+        $routes->put('(:any)/update', ArticleController::class . '::update/$1', ['filter' => 'api']);
+        $routes->delete('(:any)/destroy', ArticleController::class . '::destroy/$1', ['filter' => 'api']);
 
         /**
          * Comments

@@ -13,8 +13,8 @@ class ArticleValidation
     {
         return [
             'title'       => 'required|is_unique[articles.title]',
-            'description' => 'required',
-            'body'        => 'required',
+            'description' => 'required|min_length[5]',
+            'body'        => 'required|min_length[5]',
             'tagList'     => 'required|unique[tags.title]',
         ];
     }
@@ -30,8 +30,8 @@ class ArticleValidation
     {
         return [
             'title'       => "required|is_unique[articles.title,title,$title]",
-            'description' => "required",
-            'body'        => "required",
+            'description' => "required|min_length[5]",
+            'body'        => "required|min_length[5]",
             'tagList'     => "required|unique[tags.title,title,$ignore]",
         ];
     }

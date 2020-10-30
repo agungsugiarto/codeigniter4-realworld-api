@@ -32,8 +32,7 @@ class ArticleEntity extends Entity
     public function favorites()
     {
         return DB::table('favorites')
-            ->selectCount('id', 'count')
-            ->join('articles', 'articles.id = favorites.article_id')
+            ->selectCount('article_id', 'count')
             ->where('article_id', $this->id)
             ->get()
             ->getRow();

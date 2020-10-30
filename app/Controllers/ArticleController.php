@@ -172,6 +172,10 @@ class ArticleController extends Controller
      */
     public function destroy(string $slug)
     {
+        if (is_null($this->getArticle($slug))) {
+            return $this->fail("Article with slug {$slug} not found!", 404);
+        }
+        
         if ($this->article->where('slug', $slug)->delete()) {
             return $this->respondDeleted("Article $slug success deleted");
         }
@@ -231,7 +235,7 @@ class ArticleController extends Controller
     protected function getArticle(string $slug)
     {
         return $this->repository
-            ->findWhere(['slug', $slug])
+            ->findWhere(['slug' => $slug])
             ->first();
     }
 }

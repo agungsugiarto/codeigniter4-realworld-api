@@ -55,10 +55,11 @@ class UserController extends Controller
         }
         
         $rules = [
-            'username' => "if_exist|is_unique[users.username,username,{$user->username}]",
+            'username' => "if_exist|alpha_numeric|is_unique[users.username,username,{$user->username}]",
             'email'    => "if_exist|valid_email|is_unique[users.email,email,{$user->email}]",
-            'bio'      => "if_exist",
+            'bio'      => "if_exist|min_length[5]",
             'image'    => "if_exist|valid_url",
+            'password' => "if_exist|min_lenght[5]"
         ];
 
         if (! $this->validate($rules)) {
