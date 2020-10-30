@@ -175,12 +175,17 @@ class ArticleController extends Controller
         if (is_null($this->getArticle($slug))) {
             return $this->fail("Article with slug {$slug} not found!", 404);
         }
+
+        $this->article
+            ->where('user_id', Services::auth()->user()->id)
+            ->where('slug', $slug)
+            ->delete();
         
-        if ($this->article->where('slug', $slug)->delete()) {
-            return $this->respondDeleted("Article $slug success deleted");
+        if (! DB::affectedRows()) {
+            return $this->fail("Article with $slug error deleted");
         }
 
-        return $this->fail("Article with $slug error deleted");
+        return $this->deleteResponse("Article $slug success deleted");
     }
 
     /**

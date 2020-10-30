@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Criteria\CommentCriteria;
+use App\Models\DB;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Transformers\CommentTransformer;
@@ -106,6 +107,10 @@ class CommentController extends Controller
                 'article_id' => $article->id
             ])
             ->destroy($id);
+
+        if (! DB::affectedRows()) {
+            return $this->fail("Failed delete comment article $slug");
+        }
 
         return $this->respondDeleted("Comment with id {$id} success deleted!");
     }

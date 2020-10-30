@@ -4,14 +4,11 @@ namespace App\Libraries\Auth;
 
 use App\Entities\UserEntity;
 use App\Models\UserModel;
-use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\I18n\Time;
 use Firebase\JWT\JWT;
 
 class AuthenticationService
 {
-    use ResponseTrait;
-
     const SUBJECT_IDENTIFIER = 'username';
 
     /** @var \App\Models\UserModel */
@@ -20,9 +17,6 @@ class AuthenticationService
     /** @var \CodeIgniter\HTTP\IncomingRequest */
     protected $request;
 
-    /** @var \CodeIgniter\HTTP\Response */
-    protected $response;
-
     /**
      * Authentication service constructor.
      */
@@ -30,7 +24,6 @@ class AuthenticationService
     {
         $this->user = new UserModel();
         $this->request = service('request');
-        $this->response = service('response');
     }
 
     /**
