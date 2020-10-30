@@ -1,10 +1,7 @@
 > ### CodeIgniter4 codebase containing real world examples api (CRUD, auth, advanced patterns, etc).
 
-
 ### [Demo](http://codeigniter4-realworld-api.herokuapp.com/)
-
-
-This codebase was created to demonstrate a fully functional REST API built with **CodeIgniter4**, including CRUD operations, authentication, routing, pagination, and more.
+See how the exact same Medium.com clone (called CodeIgniter4 Realworld API).  This codebase was created to demonstrate a fully functional REST API built with **CodeIgniter4**, including CRUD operations, authentication, routing, pagination, and more.
 
 Hope you'll find this example helpful. Pull requests are welcome!
 
