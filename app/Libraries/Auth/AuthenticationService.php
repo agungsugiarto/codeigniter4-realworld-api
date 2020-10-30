@@ -45,11 +45,11 @@ class AuthenticationService
             'iat' => Time::now()->getTimestamp(),
             'exp' => Time::now()->addHours(2)->getTimestamp(),
             'jti' => base64_encode(random_bytes(16)),
-            'iss' => config('app')->baseURL,
+            'iss' => config('App')->baseURL,
             'sub' => $user->{static::SUBJECT_IDENTIFIER},
         ];
         
-        return JWT::encode($payload, config('encryption')->key, 'HS256');
+        return JWT::encode($payload, config('Encryption')->key, 'HS256');
     }
 
     /**
