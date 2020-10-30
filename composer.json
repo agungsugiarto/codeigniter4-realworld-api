@@ -10,10 +10,10 @@
         "agungsugiarto/codeigniter4-repository": "^1.0",
         "codeigniter4/framework": "^4.0",
         "firebase/php-jwt": "^5.2",
+        "fakerphp/faker": "^1.10",
         "league/fractal": "^0.19.2"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.10",
         "mikey179/vfsstream": "1.6.*",
         "phpunit/phpunit": "^8.5",
         "symfony/var-dumper": "^5.1"
