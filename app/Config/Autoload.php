@@ -39,9 +39,8 @@ class Autoload extends AutoloadConfig
      * @var array
      */
     public $psr4 = [
-        APP_NAMESPACE           => APPPATH, // For custom app namespace
-        'Config'                => APPPATH . 'Config',
-        'Fluent/Authentication' => APPPATH . 'ThirdParty/codeigniter4-authentication/src'
+        APP_NAMESPACE => APPPATH, // For custom app namespace
+        'Config'      => APPPATH . 'Config',
     ];
 
     /**
