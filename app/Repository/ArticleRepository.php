@@ -59,19 +59,19 @@ class ArticleRepository extends BaseRepository
      */
     protected function selectMySQLi()
     {
-        return ["
-            articles.id,
-            articles.slug,
-            articles.title,
-            articles.description,
-            articles.body,
-            articles.created_at,
-            articles.updated_at,
-            users.username,
-            users.bio,
-            users.image,
-            GROUP_CONCAT(tags.title SEPARATOR ',') AS tags
-        "];
+        return [
+            "articles.id",
+            "articles.slug",
+            "articles.title",
+            "articles.description",
+            "articles.body",
+            "articles.created_at",
+            "articles.updated_at",
+            "users.username",
+            "users.bio",
+            "users.image",
+            "GROUP_CONCAT(tags.title SEPARATOR ',') AS tags",
+        ];
     }
 
     /**
@@ -81,18 +81,18 @@ class ArticleRepository extends BaseRepository
      */
     protected function selectPosgre()
     {
-        return ["
-            articles.id,
-            articles.slug,
-            articles.title,
-            articles.description,
-            articles.body,
-            articles.created_at,
-            articles.updated_at,
-            users.username,
-            users.bio,
-            users.image,
-            array_to_string(array_agg(tags.title), ',') AS tags
-        "];
+        return [
+            "articles.id",
+            "articles.slug",
+            "articles.title",
+            "articles.description",
+            "articles.body",
+            "articles.created_at",
+            "articles.updated_at",
+            "users.username",
+            "users.bio",
+            "users.image",
+            "array_to_string(array_agg(tags.title), ',') AS tags",
+        ];
     }
 }
