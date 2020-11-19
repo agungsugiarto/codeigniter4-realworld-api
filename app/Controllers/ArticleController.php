@@ -200,13 +200,7 @@ class ArticleController extends Controller
             return $this->fail("Article with slug {$slug} not found!", 404);
         }
 
-        DB::table('favorites')
-            ->insert([
-                'user_id'    => Services::auth()->user()->id,
-                'article_id' => $article->id,
-                'created_at' => Time::now(),
-                'updated_at' => Time::now(),
-            ]);
+        $this->article->createFavorites(['article_id' => $article->id]);
 
         return $this->show($slug);
     }
@@ -223,10 +217,7 @@ class ArticleController extends Controller
             return $this->fail("Article with slug {$slug} not found!", 404);
         }
 
-        DB::table('favorites')
-            ->where('user_id', Services::auth()->user()->id)
-            ->where('article_id', $article->id)
-            ->delete();
+        $this->article->deleteFavorites(['article_id' => $article->id]);
 
         return $this->show($slug);
     }

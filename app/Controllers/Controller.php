@@ -95,15 +95,15 @@ class Controller extends BaseController
     }
 
     /**
-	 * Used for generic success response delete.
-	 *
-	 * @param string|array $messages
-	 * @param integer|null $status        HTTP status code
-	 * @param string|null  $code          Custom, API-specific, error code
-	 * @param string       $customMessage
-	 *
-	 * @return mixed
-	 */
+     * Used for generic success response delete.
+     *
+     * @param string|array $messages
+     * @param integer|null $status        HTTP status code
+     * @param string|null  $code          Custom, API-specific, error code
+     * @param string       $customMessage
+     *
+     * @return mixed
+     */
     protected function deleteResponse($messages, int $status = 200, string $code = null, string $customMessage = '')
     {
         if (! is_array($messages)) {
@@ -111,12 +111,12 @@ class Controller extends BaseController
         }
 
         $response = [
-			'status'   => $status,
-			'error'    => $code === null ? $status : $code,
-			'messages' => $messages,
-		];
+            'status'   => $status,
+            'error'    => $code === null ? $status : $code,
+            'messages' => $messages,
+        ];
 
-		return $this->respond($response, $status, $customMessage);
+        return $this->respond($response, $status, $customMessage);
     }
     
     /**

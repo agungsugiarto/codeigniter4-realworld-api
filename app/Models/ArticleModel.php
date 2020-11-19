@@ -103,4 +103,49 @@ class ArticleModel extends Model
 
         return $this->insertArticleTags($tags, $tagID);
     }
+
+    /**
+     * Create favorites.
+     *
+     * @param array $attributes
+     * @return mixed
+     */
+    public function createFavorites(array $attributes)
+    {
+        $instance = $this->db->table('favorites')
+            ->where([
+                'user_id'    => Services::auth()->user()->id,
+                'article_id' => $attributes['article_id']
+            ])
+            ->get()
+            ->getFirstRow();
+
+        if (is_null($instance)) {
+            return $this->db->table('favorites')
+                ->insert([
+                    'user_id'    => Services::auth()->user()->id,
+                    'article_id' => $attributes['article_id'],
+                    'created_at' => Time::now(),
+                    'updated_at' => Time::now(),
+                ]);
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Delete favorites.
+     *
+     * @param array $attributes
+     * @return mixed
+     */
+    public function deleteFavorites(array $attributes)
+    {
+        return $this->db->table('favorites')
+            ->where([
+                'user_id'    => Services::auth()->user()->id,
+                'article_id' => $attributes['article_id']
+            ])
+            ->delete();
+    }
 }
