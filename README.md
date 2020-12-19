@@ -140,3 +140,8 @@ This applications has CORS enabled by default on all API endpoints. The CORS all
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 - https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 - https://www.w3.org/TR/cors
+
+----------
+# License
+
+This project is free software distributed under the terms of the [MIT license](LICENSE.md).
