@@ -10,8 +10,7 @@ use App\Models\TagModel;
 use App\Repository\ArticleRepository;
 use App\Transformers\ArticleTransformer;
 use App\Validations\ArticleValidation;
-use CodeIgniter\I18n\Time;
-use Config\Services;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class ArticleController extends Controller
 {
@@ -117,7 +116,7 @@ class ArticleController extends Controller
             ->first($this->repository->select());
 
         if (is_null($resources)) {
-            return $this->fail("Article with slug {$slug} not found!", 404);
+            return $this->fail("Article with slug {$slug} not found!", ResponseInterface::HTTP_NOT_FOUND);
         }
             
         return $this->fractalItem($resources, new ArticleTransformer(), 'article');
@@ -134,14 +133,21 @@ class ArticleController extends Controller
         $request = (object) $this->request->getRawInput();
         $ignore = implode('.', $request->tagList);
         
+        // article not found
         if (is_null($article = $this->getArticle($slug))) {
-            return $this->fail("Article with slug {$slug} not found!", 404);
+            return $this->fail("Article with slug {$slug} not found!", ResponseInterface::HTTP_NOT_FOUND);
         }
 
-        if (! $this->validate(ArticleValidation::update($article->title, $ignore))) {
+        // validate
+        if (! $this->validate(ArticleValidation::update($ignore))) {
             return $this->fail(
                 $this->parseError($this->validator->getErrors())
             );
+        }
+
+        // make sure current user can update article
+        if (auth('token')->id() !== $article->user_id) {
+            return $this->fail("Not allowed update", ResponseInterface::HTTP_FORBIDDEN);
         }
 
         DB::transBegin();
@@ -172,8 +178,12 @@ class ArticleController extends Controller
      */
     public function destroy(string $slug)
     {
-        if (is_null($this->getArticle($slug))) {
-            return $this->fail("Article with slug {$slug} not found!", 404);
+        if (is_null($article = $this->getArticle($slug))) {
+            return $this->fail("Article with slug {$slug} not found!", ResponseInterface::HTTP_NOT_FOUND);
+        }
+
+        if (auth('token')->id() !== $article->user_id) {
+            return $this->fail("Not allowed delete", ResponseInterface::HTTP_FORBIDDEN);
         }
 
         $this->article
@@ -197,7 +207,7 @@ class ArticleController extends Controller
     public function addFavorite(string $slug)
     {
         if (is_null($article = $this->getArticle($slug))) {
-            return $this->fail("Article with slug {$slug} not found!", 404);
+            return $this->fail("Article with slug {$slug} not found!", ResponseInterface::HTTP_NOT_FOUND);
         }
 
         $this->article->createFavorites(['article_id' => $article->id]);
@@ -214,7 +224,7 @@ class ArticleController extends Controller
     public function unFavorite(string $slug)
     {
         if (is_null($article = $this->getArticle($slug))) {
-            return $this->fail("Article with slug {$slug} not found!", 404);
+            return $this->fail("Article with slug {$slug} not found!", ResponseInterface::HTTP_NOT_FOUND);
         }
 
         $this->article->deleteFavorites(['article_id' => $article->id]);

@@ -57,9 +57,6 @@ class ArticleModel extends Model
     public function updateArticle(object $request, string $slug)
     {
         return $this->where('slug', $slug)->set([
-            'user_id'     => auth('token')->user()->id,
-            'title'       => $request->title,
-            'slug'        => url_title($request->title, '-', true),
             'body'        => $request->body,
             'description' => $request->description,
         ])->update();

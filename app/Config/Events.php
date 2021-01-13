@@ -52,9 +52,9 @@ Events::on('pre_system', function () {
     if (ENVIRONMENT !== 'production') {
         Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
         Services::toolbar()->respond();
-    }
 
-    Events::on('DBQuery', function (Query $query) {
-        log_message('info', $query);
-    });
+        // Events::on('DBQuery', function (Query $query) {
+        //     log_message('info', $query);
+        // });
+    }
 });

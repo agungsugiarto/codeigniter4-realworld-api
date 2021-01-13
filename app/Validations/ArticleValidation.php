@@ -26,10 +26,9 @@ class ArticleValidation
      * @param string $ignore
      * @return array
      */
-    public static function update(string $title, string $ignore)
+    public static function update(string $ignore)
     {
         return [
-            'title'       => "required|is_unique[articles.title,title,$title]",
             'description' => "required|min_length[5]",
             'body'        => "required|min_length[5]",
             'tagList'     => "required|unique[tags.title,title,$ignore]",
