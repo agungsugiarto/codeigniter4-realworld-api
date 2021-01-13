@@ -92,7 +92,7 @@ class AuthenticationController extends Controller
 
     /**
      * Login this user and try to create token.
-     * 
+     *
      * @return mixed
      */
     protected function generateToken(Result $result)

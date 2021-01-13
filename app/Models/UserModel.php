@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Entities\UserEntity;
-use App\Libraries\Auth\AuthenticationService;
 use CodeIgniter\Model;
 use Fluent\Auth\Contracts\UserProviderInterface;
 use Fluent\Auth\Traits\UserProvider as UserProviderTrait;

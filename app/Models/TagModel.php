@@ -4,14 +4,17 @@ namespace App\Models;
 
 use App\Entities\TagEntity;
 use CodeIgniter\Model;
+use Faker\Generator;
+
+use function is_null;
 
 class TagModel extends Model
 {
-    protected $table = 'tags';
-    protected $primaryKey = 'id';
-    protected $returnType = TagEntity::class;
-    protected $allowedFields = ['title'];
-    protected $useTimestamps = true;
+    protected $table          = 'tags';
+    protected $primaryKey     = 'id';
+    protected $returnType     = TagEntity::class;
+    protected $allowedFields  = ['title'];
+    protected $useTimestamps  = true;
     protected $skipValidation = true;
 
     /**
@@ -33,7 +36,7 @@ class TagModel extends Model
     /**
      * Generate fake data.
      *
-     * @param \Faker\Generator $faker
+     * @param Generator $faker
      * @return array
      */
     public function fake($faker)

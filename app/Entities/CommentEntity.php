@@ -4,7 +4,6 @@ namespace App\Entities;
 
 use App\Models\DB;
 use CodeIgniter\Entity;
-use Config\Services;
 
 class CommentEntity extends Entity
 {

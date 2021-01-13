@@ -1,5 +1,6 @@
 <?php
 
+use CodeIgniter\Test\Fabricator;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
@@ -28,7 +29,7 @@ if (! function_exists('factory')) {
      */
     function factory($model, $count = null, ?array $formatters = null, ?array $overrides = null)
     {
-        $fabricator = new \CodeIgniter\Test\Fabricator($model, $formatters);
+        $fabricator = new Fabricator($model, $formatters);
 
         if (! is_null($overrides)) {
             $fabricator->setOverrides($overrides);
@@ -39,9 +40,6 @@ if (! function_exists('factory')) {
 }
 
 if (! function_exists('dumping')) {
-    /**
-     * @author Nicolas Grekas <p@tchwork.com>
-     */
     function dumping($var, ...$moreVars)
     {
         VarDumper::dump($var);

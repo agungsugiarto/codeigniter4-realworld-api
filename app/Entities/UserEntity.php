@@ -3,7 +3,6 @@
 namespace App\Entities;
 
 use App\Models\DB;
-use Config\Services;
 use Fluent\Auth\Entities\User;
 
 class UserEntity extends User

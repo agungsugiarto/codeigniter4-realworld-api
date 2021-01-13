@@ -11,20 +11,18 @@ class UniqueBatchValidator
      * record by field or valaue to make it usefull during record updates.
      *
      * @param array $str
-     * @param string $field
      * @param array $data
-     * @return bool
      */
     public function unique(array $str, string $field, array $data): bool
     {
         // Grab any data for exclusion of a single row.
-        list($field, $ignoreField, $ignoreValue) = array_pad(explode(',', $field), 3, null);
-        
+        [$field, $ignoreField, $ignoreValue] = array_pad(explode(',', $field), 3, null);
+
         // Break the table and field apart
         sscanf($field, '%[^.].%[^.]', $table, $field);
 
         $db = Database::connect($data['DBGroup'] ?? null);
-        
+
         $rows = $db->table($table)->select('1')->whereIn($field, $str);
 
         if (! empty($ignoreField) && ! empty($ignoreValue)) {
@@ -34,7 +32,7 @@ class UniqueBatchValidator
                 }
             }
         }
-        
+
         return $rows->countAllResults() === 0;
     }
 }

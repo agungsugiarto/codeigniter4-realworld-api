@@ -4,20 +4,23 @@ namespace App\Models;
 
 use App\Entities\CommentEntity;
 use CodeIgniter\Model;
+use Faker\Generator;
+
+use function rand;
 
 class CommentModel extends Model
 {
-    protected $table = 'comments';
-    protected $primaryKey = 'id';
-    protected $returnType = CommentEntity::class;
-    protected $allowedFields = ['user_id', 'article_id', 'body'];
-    protected $useTimestamps = true;
+    protected $table          = 'comments';
+    protected $primaryKey     = 'id';
+    protected $returnType     = CommentEntity::class;
+    protected $allowedFields  = ['user_id', 'article_id', 'body'];
+    protected $useTimestamps  = true;
     protected $skipValidation = true;
 
     /**
      * Generate fake data.
      *
-     * @param \Faker\Generator $faker
+     * @param Generator $faker
      * @return array
      */
     public function fake($faker)

@@ -9,43 +9,42 @@ class WriteableLink extends BaseCommand
 {
     /**
      * Command grouping.
-     * 
+     *
      * @var string
      */
     protected $group = 'Writeable';
 
     /**
      * The command's name.
-     * 
+     *
      * @var string
      */
     protected $name = 'writeable:link';
 
     /**
      * The command's short description.
-     * 
+     *
      * @var string
      */
     protected $description = 'Create a symbolic link from "writeable/app/public" to "public/writeable"';
 
     /**
      * The command's usage.
-     * 
+     *
      * @var string
      */
     protected $usage = 'writeable:link';
 
     /**
      * Execute the console command.
-     * 
+     *
      * @param array $parrams
-     * 
+     *
      * @return void
      */
     public function run(array $params)
     {
-        if (file_exists(ROOTPATH . 'public/writable'))
-        {
+        if (file_exists(ROOTPATH . 'public/writable')) {
             CLI::error('The "public/writable" directory already exists.');
             return;
         }
@@ -64,13 +63,12 @@ class WriteableLink extends BaseCommand
      */
     protected function link($target, $link)
     {
-        if (! PHP_OS_FAMILY === 'Windows')
-        {
+        if (! PHP_OS_FAMILY === 'Windows') {
             return symlink($target, $link);
         }
 
         $mode = is_dir($target) ? 'J' : 'H';
 
-        exec("mklink /{$mode} ".escapeshellarg($link).' '.escapeshellarg($target));
+        exec("mklink /{$mode} " . escapeshellarg($link) . ' ' . escapeshellarg($target));
     }
 }

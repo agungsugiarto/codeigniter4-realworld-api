@@ -5,21 +5,21 @@ namespace App\Models;
 use App\Entities\ArticleEntity;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Model;
-use Config\Services;
+use Faker\Generator;
 
 class ArticleModel extends Model
 {
-    protected $table = 'articles';
-    protected $primaryKey = 'id';
-    protected $returnType = ArticleEntity::class;
-    protected $allowedFields = ['user_id', 'slug', 'title', 'description', 'body'];
-    protected $useTimestamps = true;
+    protected $table          = 'articles';
+    protected $primaryKey     = 'id';
+    protected $returnType     = ArticleEntity::class;
+    protected $allowedFields  = ['user_id', 'slug', 'title', 'description', 'body'];
+    protected $useTimestamps  = true;
     protected $skipValidation = true;
 
     /**
      * Generate fake data.
      *
-     * @param \Faker\Generator $faker
+     * @param Generator $faker
      * @return array
      */
     public function fake($faker)
@@ -36,7 +36,6 @@ class ArticleModel extends Model
     /**
      * Insert article.
      *
-     * @param object $request
      * @return mixed
      */
     public function insertArticle(object $request)
@@ -53,8 +52,6 @@ class ArticleModel extends Model
     /**
      * Update article.
      *
-     * @param object $request
-     * @param string $slug
      * @return mixed
      */
     public function updateArticle(object $request, string $slug)
@@ -93,7 +90,6 @@ class ArticleModel extends Model
      * Update article tag id.
      *
      * @param array tags
-     * @param string $slug
      * @return mixed
      */
     public function updateArticleTags(array $tags, string $slug)
@@ -115,7 +111,7 @@ class ArticleModel extends Model
         $instance = $this->db->table('favorites')
             ->where([
                 'user_id'    => auth('token')->user()->id,
-                'article_id' => $attributes['article_id']
+                'article_id' => $attributes['article_id'],
             ])
             ->get()
             ->getFirstRow();
@@ -144,7 +140,7 @@ class ArticleModel extends Model
         return $this->db->table('favorites')
             ->where([
                 'user_id'    => auth('token')->user()->id,
-                'article_id' => $attributes['article_id']
+                'article_id' => $attributes['article_id'],
             ])
             ->delete();
     }

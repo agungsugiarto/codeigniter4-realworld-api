@@ -4,7 +4,6 @@ namespace App\Criteria;
 
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Model;
-use Config\Services;
 use Fluent\Repository\Contracts\CriterionInterface;
 
 class FeedArticleCriteria implements CriterionInterface
