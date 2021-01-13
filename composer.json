@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.2",
+        "agungsugiarto/codeigniter4-authentication": "1.x-dev",
         "agungsugiarto/codeigniter4-cors": "^1.0",
         "agungsugiarto/codeigniter4-repository": "^1.0",
         "codeigniter4/framework": "^4.0",

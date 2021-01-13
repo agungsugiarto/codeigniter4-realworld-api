@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8945a48018b476d2b67c9c1fce73d85f",
+    "content-hash": "e98e9d4f96886aeed03297d6f7d4059d",
     "packages": [
+        {
+            "name": "agungsugiarto/codeigniter4-authentication",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/agungsugiarto/codeigniter4-authentication.git",
+                "reference": "14fbe226bd573974e499b91e3dbd3258f84a3a3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-authentication/zipball/14fbe226bd573974e499b91e3dbd3258f84a3a3e",
+                "reference": "14fbe226bd573974e499b91e3dbd3258f84a3a3e",
+                "shasum": ""
+            },
+            "require": {
+                "codeigniter4/framework": "^4.0",
+                "fakerphp/faker": "^1.13",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "^2.1",
+                "phpunit/phpunit": "^8.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fluent\\Auth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Agung Sugiarto",
+                    "email": "me.agungsugiarto@gmail.com",
+                    "homepage": "https://agungsugiarto.github.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "provides an API for authentication and includes concrete authentication adapters for common use case scenarios",
+            "keywords": [
+                "Authentication",
+                "auth",
+                "codeigniter4"
+            ],
+            "support": {
+                "issues": "https://github.com/agungsugiarto/codeigniter4-authentication/issues",
+                "source": "https://github.com/agungsugiarto/codeigniter4-authentication/tree/master"
+            },
+            "time": "2021-01-13T10:06:23+00:00"
+        },
         {
             "name": "agungsugiarto/codeigniter4-cors",
             "version": "v1.0.4",
@@ -2613,7 +2672,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "agungsugiarto/codeigniter4-authentication": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
