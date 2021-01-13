@@ -20,17 +20,4 @@ use CodeIgniter\Config\Services as CoreServices;
  */
 class Services extends CoreServices
 {
-    /**
-     * Authentication service.
-     *
-     * @return \App\Libraries\Auth\AuthenticationService
-     */
-    public static function auth($getShared = true)
-    {
-        if ($getShared) {
-            return static::getSharedInstance('auth');
-        }
-
-        return new AuthenticationService();
-    }
 }

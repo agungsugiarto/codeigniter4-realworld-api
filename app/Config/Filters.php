@@ -13,8 +13,8 @@ class Filters extends BaseConfig
         'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'cors'     => \Fluent\Cors\Filters\CorsFilter::class,
-        'api'      => \App\Filters\AuthenticationFilter::class,
-        'throttle' => \App\Filters\ThrottleFilter::class,
+        'token'    => \Fluent\Auth\Filters\TokenFilter::class,
+        'throttle' => \Fluent\Auth\Filters\ThrottleFilter::class,
     ];
 
     // Always applied before every request
@@ -38,7 +38,6 @@ class Filters extends BaseConfig
     // that they should run on, like:
     //    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
     public $filters = [
-        'throttle' => ['before' => ['api/*']],
-        'cors'     => ['before' => ['api/*']],
+        'cors' => ['before' => ['api/*']],
     ];
 }

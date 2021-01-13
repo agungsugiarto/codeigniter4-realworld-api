@@ -15,7 +15,7 @@ $routes->group('api', function (Routes $routes) {
     /**
      * Authentication
      */
-    $routes->post('users/login', AuthenticationController::class . '::login');
+    $routes->post('users/login', AuthenticationController::class . '::login', ['filter' => 'throttle']);
     $routes->post('users', AuthenticationController::class . '::register');
 
     /**
