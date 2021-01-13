@@ -56,7 +56,7 @@ class ProfileController extends Controller
 
         DB::table('follows')
             ->insert([
-                'follower_id' => Services::auth()->user()->id,
+                'follower_id' => auth('token')->user()->id,
                 'followed_id' => $user->id,
                 'created_at'  => Time::now(),
                 'updated_at'  => Time::now(),
@@ -80,7 +80,7 @@ class ProfileController extends Controller
         }
 
         DB::table('follows')
-            ->where('follower_id', Services::auth()->user()->id)
+            ->where('follower_id', auth('token')->user()->id)
             ->where('followed_id', $user->id)
             ->delete();
 

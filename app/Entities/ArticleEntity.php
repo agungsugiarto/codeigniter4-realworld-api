@@ -17,7 +17,7 @@ class ArticleEntity extends Entity
     {
         return DB::table('favorites')
             ->selectCount('article_id', 'count')
-            ->where('user_id', Services::auth()->user()->id ?? 0)
+            ->where('user_id', auth('token')->user()->id ?? 0)
             ->where('article_id', $this->id)
             ->get()
             ->getRow()

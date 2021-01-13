@@ -5,13 +5,10 @@ namespace App\Controllers;
 use App\Entities\UserEntity;
 use App\Models\UserModel;
 use App\Transformers\UserTransformer;
-use Config\Services;
+use Fluent\Auth\Result;
 
 class AuthenticationController extends Controller
 {
-    /** @var \App\Libraries\Auth\AuthenticationService */
-    protected $auth;
-
     /** @var \App\Models\UserModel */
     protected $user;
 
@@ -25,7 +22,6 @@ class AuthenticationController extends Controller
      */
     public function __construct()
     {
-        $this->auth = Services::auth();
         $this->entity = new UserEntity();
         $this->user = new UserModel();
     }
@@ -53,10 +49,11 @@ class AuthenticationController extends Controller
             );
         }
         
-        $this->entity->email = $request->email;
+        $this->entity->email    = $request->email;
         $this->entity->username = $request->username;
-        $this->entity->password = password_hash($request->password, PASSWORD_DEFAULT);
-        $this->entity->token = $this->auth->generateToken($this->entity);
+        $this->entity->password = $request->password;
+        $this->entity->bio      = $request->bio ?? null;
+        $this->entity->image    = $request->image ?? null;
 
         $this->user->save($this->entity);
 
@@ -83,10 +80,39 @@ class AuthenticationController extends Controller
             );
         }
 
-        if ($user = $this->auth->attempt($request->email, $request->password)) {
-            return $this->fractalItem($user, new UserTransformer());
+        // check user credentials
+        $result = auth()->check(['email' => $request->email, 'password' => $request->password]);
+
+        if ($result->isOK()) {
+            return $this->generateToken($result);
         }
 
-        return $this->fail(['errors' => ['email or password' => ['is invalid']]])->setStatusCode(422);
+        return $this->fail(['errors' => ['message' => [$result->reason()]]])->setStatusCode(422);
+    }
+
+    /**
+     * Login this user and try to create token.
+     * 
+     * @return mixed
+     */
+    protected function generateToken(Result $result)
+    {
+        /** @var \App\Entities\UserEntity */
+        $user = $result->extraInfo();
+
+        // try to login this user
+        auth('token')->login($user);
+
+        // remove all first current token user
+        // if you don't need this just uncomment
+        $user->revokeAllAccessTokens();
+
+        // generate new token user
+        $token = $user->generateAccessToken('login')->raw_token;
+
+        // added object token
+        $user->token = $token;
+
+        return $this->fractalItem($user, new UserTransformer(), 'user');
     }
 }

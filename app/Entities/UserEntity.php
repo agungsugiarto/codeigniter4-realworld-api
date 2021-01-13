@@ -4,9 +4,9 @@ namespace App\Entities;
 
 use App\Models\DB;
 use Config\Services;
-use CodeIgniter\Entity;
+use Fluent\Auth\Entities\User;
 
-class UserEntity extends Entity
+class UserEntity extends User
 {
     /**
      * Check if the user is following the user with the provided id.
@@ -17,7 +17,7 @@ class UserEntity extends Entity
     public function isFollowing()
     {
         return DB::table('follows')
-            ->where('follower_id', Services::auth()->user()->id)
+            ->where('follower_id', auth('token')->user()->id)
             ->where('followed_id', $this->id)
             ->countAllResults() !== 0;
     }

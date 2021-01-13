@@ -21,7 +21,7 @@ if (! defined('passwords')) {
     /**
      * Password utilities.
      *
-     * @return Passwords|mixed
+     * @return Passwords
      */
     function passwords()
     {

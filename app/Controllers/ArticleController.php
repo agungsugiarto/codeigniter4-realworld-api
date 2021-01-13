@@ -177,7 +177,7 @@ class ArticleController extends Controller
         }
 
         $this->article
-            ->where('user_id', Services::auth()->user()->id)
+            ->where('user_id', auth('token')->user()->id)
             ->where('slug', $slug)
             ->delete();
         

@@ -6,7 +6,6 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Fluent\Auth\Config\Services;
-use Fluent\Auth\Facades\Auth;
 
 class TokenFilter implements FilterInterface
 {
@@ -15,7 +14,9 @@ class TokenFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $result = Auth::adapter('token')->check([
+        helper('auth');
+
+        $result = auth('token')->check([
             'token' => $request->getHeaderLine('Authorization'),
         ]);
 
@@ -25,6 +26,8 @@ class TokenFilter implements FilterInterface
                 'message' => $result->reason(),
             ])->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
         }
+
+        auth('token')->login($result->extraInfo());
     }
 
     /**

@@ -17,7 +17,7 @@ class UserTransformer extends TransformerAbstract
             'username' => $user->username,
             'bio'      => $user->bio,
             'image'    => $user->image,
-            'token'    => $user->token,
+            'token'    => $user->token ?? null,
         ];
     }
 }

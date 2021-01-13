@@ -6,7 +6,8 @@ use App\Entities\UserEntity;
 use App\Models\UserModel;
 use App\Transformers\UserTransformer;
 use CodeIgniter\API\ResponseTrait;
-use Config\Services;
+use CodeIgniter\Database\Exceptions\DatabaseException;
+use Exception;
 
 class UserController extends Controller
 {
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Services::auth()->user();
+        $user = auth('token')->user();
 
         return $this->fractalItem($user, new UserTransformer(), 'user');
     }
@@ -48,7 +49,7 @@ class UserController extends Controller
      */
     public function update()
     {
-        $user = Services::auth()->user();
+        $user = auth('token')->user();
 
         if (is_null($user)) {
             return $this->fail('User not found');
@@ -68,7 +69,11 @@ class UserController extends Controller
             );
         }
 
-        $this->user->update($user->id, $this->request->getRawInput());
+        try {
+            $this->user->update($user->id, new UserEntity($this->request->getRawInput()));
+        } catch (Exception $e) {
+            return $this->fail($e->getMessage());
+        }
 
         return $this->fractalItem($this->user->find($user->id), new UserTransformer());
     }
