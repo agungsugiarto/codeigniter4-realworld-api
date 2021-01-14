@@ -9,12 +9,13 @@ class Filters extends BaseConfig
     // Makes reading things below nicer,
     // and simpler to change out script that's used.
     public $aliases = [
-        'csrf'     => \CodeIgniter\Filters\CSRF::class,
-        'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
-        'honeypot' => \CodeIgniter\Filters\Honeypot::class,
-        'cors'     => \Fluent\Cors\Filters\CorsFilter::class,
-        'token'    => \Fluent\Auth\Filters\TokenFilter::class,
-        'throttle' => \Fluent\Auth\Filters\ThrottleFilter::class,
+        'csrf'           => \CodeIgniter\Filters\CSRF::class,
+        'toolbar'        => \CodeIgniter\Filters\DebugToolbar::class,
+        'honeypot'       => \CodeIgniter\Filters\Honeypot::class,
+        'cors'           => \Fluent\Cors\Filters\CorsFilter::class,
+        'token'          => \Fluent\Auth\Filters\TokenFilter::class,
+        'throttle'       => \Fluent\Auth\Filters\ThrottleFilter::class,
+        'token-optional' => \App\Filters\TokenOptionalFilter::class,
     ];
 
     // Always applied before every request

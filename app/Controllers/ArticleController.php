@@ -145,11 +145,6 @@ class ArticleController extends Controller
             );
         }
 
-        // make sure current user can update article
-        if (auth('token')->id() !== $article->user_id) {
-            return $this->fail("Not allowed update", ResponseInterface::HTTP_FORBIDDEN);
-        }
-
         DB::transBegin();
 
         try {
@@ -178,12 +173,8 @@ class ArticleController extends Controller
      */
     public function destroy(string $slug)
     {
-        if (is_null($article = $this->getArticle($slug))) {
+        if (is_null($this->getArticle($slug))) {
             return $this->fail("Article with slug {$slug} not found!", ResponseInterface::HTTP_NOT_FOUND);
-        }
-
-        if (auth('token')->id() !== $article->user_id) {
-            return $this->fail("Not allowed delete", ResponseInterface::HTTP_FORBIDDEN);
         }
 
         $this->article
@@ -241,7 +232,8 @@ class ArticleController extends Controller
     protected function getArticle(string $slug)
     {
         return $this->repository
-            ->findWhere(['slug' => $slug])
+            ->where('slug', $slug)
+            ->where('user_id', auth('token')->user()->id)
             ->first();
     }
 }

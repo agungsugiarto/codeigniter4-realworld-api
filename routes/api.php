@@ -16,7 +16,7 @@ $routes->group('api', function (Routes $routes) {
      * Authentication
      */
     $routes->post('users/login', AuthenticationController::class . '::login', ['filter' => 'throttle']);
-    $routes->post('users', AuthenticationController::class . '::register');
+    $routes->post('users', AuthenticationController::class . '::register', ['filter' => 'throttle']);
 
     /**
      * Current user
@@ -39,10 +39,10 @@ $routes->group('api', function (Routes $routes) {
      */
     $routes->group('articles', function (Routes $routes) {
         
-        $routes->get('/', ArticleController::class . '::index');
+        $routes->get('/', ArticleController::class . '::index', ['filter' => 'token-optional']);
         $routes->get('feed', ArticleController::class . '::feed', ['filter' => 'token']);
         $routes->post('create', ArticleController::class . '::store', ['filter' => 'token']);
-        $routes->get('(:any)/show', ArticleController::class . '::show/$1');
+        $routes->get('(:any)/show', ArticleController::class . '::show/$1', ['filter' => 'token-optional']);
         $routes->put('(:any)/update', ArticleController::class . '::update/$1', ['filter' => 'token']);
         $routes->delete('(:any)/destroy', ArticleController::class . '::destroy/$1', ['filter' => 'token']);
 
