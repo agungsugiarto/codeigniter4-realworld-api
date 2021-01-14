@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/agungsugiarto/codeigniter4-authentication.git",
-                "reference": "14fbe226bd573974e499b91e3dbd3258f84a3a3e"
+                "reference": "075a2d3aa1ac00f2fe7c623346761a28ee111f9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-authentication/zipball/14fbe226bd573974e499b91e3dbd3258f84a3a3e",
-                "reference": "14fbe226bd573974e499b91e3dbd3258f84a3a3e",
+                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-authentication/zipball/075a2d3aa1ac00f2fe7c623346761a28ee111f9a",
+                "reference": "075a2d3aa1ac00f2fe7c623346761a28ee111f9a",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "issues": "https://github.com/agungsugiarto/codeigniter4-authentication/issues",
                 "source": "https://github.com/agungsugiarto/codeigniter4-authentication/tree/master"
             },
-            "time": "2021-01-13T10:06:23+00:00"
+            "time": "2021-01-14T14:15:41+00:00"
         },
         {
             "name": "agungsugiarto/codeigniter4-cors",
