@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\Entities\TagEntity;
-use App\Entities\UserEntity;
 use League\Fractal\TransformerAbstract;
 
 class TagTransformer extends TransformerAbstract

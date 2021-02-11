@@ -2,20 +2,19 @@
 // Tabs
 //--------------------------------------------------------------------
 
-var tabLinks = new Array();
+var tabLinks    = new Array();
 var contentDivs = new Array();
 
 function init()
 {
-
     // Grab the tab links and content divs from the page
     var tabListItems = document.getElementById('tabs').childNodes;
     console.log(tabListItems);
     for (var i = 0; i < tabListItems.length; i++) {
         if (tabListItems[i].nodeName == "LI") {
-            var tabLink = getFirstChildWithTagName(tabListItems[i], 'A');
-            var id = getHash(tabLink.getAttribute('href'));
-            tabLinks[id] = tabLink;
+            var tabLink     = getFirstChildWithTagName(tabListItems[i], 'A');
+            var id          = getHash(tabLink.getAttribute('href'));
+            tabLinks[id]    = tabLink;
             contentDivs[id] = document.getElementById(id);
         }
     }
@@ -27,7 +26,8 @@ function init()
     for (var id in tabLinks) {
         tabLinks[id].onclick = showTab;
         tabLinks[id].onfocus = function () {
-            this.blur() };
+            this.blur()
+        };
         if (i == 0) {
             tabLinks[id].className = 'active';
         }
@@ -56,10 +56,10 @@ function showTab()
     // Also show the selected content div, and hide all others.
     for (var id in contentDivs) {
         if (id == selectedId) {
-            tabLinks[id].className = 'active';
+            tabLinks[id].className    = 'active';
             contentDivs[id].className = 'content';
         } else {
-            tabLinks[id].className = '';
+            tabLinks[id].className    = '';
             contentDivs[id].className = 'content hide';
         }
     }

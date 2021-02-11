@@ -5,28 +5,29 @@ namespace App\Models;
 use Closure;
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseConnection;
+use CodeIgniter\Database\BasePreparedQuery;
+use CodeIgniter\Database\BaseResult;
+use CodeIgniter\Database\Query;
 use Config\Database;
 
 /**
  * @see \CodeIgniter\Database\BaseConnection
  * @see \CodeIgniter\Database\BaseBuilder
  *
- * @method static BaseBuilder testMode(bool $mode = true)
- * @method static BaseBuilder getBinds()
- * @method static BaseBuilder ignore(bool $ignore = true)
+ * @method static $this testMode(bool $mode = true)
+ * @method static array getBinds()
+ * @method static $this ignore(bool $ignore = true)
  * @method static BaseBuilder select($select = '*', bool $escape = null)
  * @method static BaseBuilder selectMax(string $select = '', string $alias = '')
  * @method static BaseBuilder selectMin(string $select = '', string $alias = '')
  * @method static BaseBuilder selectAvg(string $select = '', string $alias = '')
  * @method static BaseBuilder selectSum(string $select = '', string $alias = '')
  * @method static BaseBuilder selectCount(string $select = '', string $alias = '')
- * @method static BaseBuilder maxMinAvgSum(string $select = '', string $alias = '', string $type = 'MAX')
  * @method static BaseBuilder distinct(bool $val = true)
  * @method static BaseBuilder from($from, bool $overwrite = false)
  * @method static BaseBuilder join(string $table, string $cond, string $type = '', bool $escape = null)
  * @method static BaseBuilder where($key, $value = null, bool $escape = null)
  * @method static BaseBuilder orWhere($key, $value = null, bool $escape = null)
- * @method static BaseBuilder whereHaving(string $qb_key, $key, $value = null, string $type = 'AND ', bool $escape = null)
  * @method static BaseBuilder whereIn(string $key = null, $values = null, bool $escape = null)
  * @method static BaseBuilder orWhereIn(string $key = null, $values = null, bool $escape = null)
  * @method static BaseBuilder whereNotIn(string $key = null, $values = null, bool $escape = null)
@@ -68,71 +69,118 @@ use Config\Database;
  * @method static BaseBuilder getCompiledQBWhere()
  * @method static BaseBuilder getWhere($where = null, int $limit = null, ?int $offset = 0, bool $reset = true)
  * @method static BaseBuilder insertBatch(array $set = null, bool $escape = null, int $batchSize = 100)
- * @method static BaseBuilder setInsertBatch($key, string $value = '', bool $escape = null)
- * @method static BaseBuilder getCompiledInsert(bool $reset = true)
- * @method static BaseBuilder insert(array $set = null, bool $escape = null)
- * @method static BaseBuilder replace(array $set = null)
- * @method static BaseBuilder getCompiledUpdate(bool $reset = true)
- * @method static BaseBuilder update(array $set = null, $where = null, int $limit = null)
- * @method static BaseBuilder updateBatch(array $set = null, string $index = null, int $batchSize = 100)
- * @method static BaseBuilder setUpdateBatch($key, string $index = '', bool $escape = null)
- * @method static BaseBuilder emptyTable()
- * @method static BaseBuilder truncate()
- * @method static BaseBuilder getCompiledDelete(bool $reset = true)
- * @method static BaseBuilder delete($where = '', int $limit = null, bool $reset_data = true)
- * @method static BaseBuilder increment(string $column, int $value = 1)
- * @method static BaseBuilder decrement(string $column, int $value = 1)
- * @method static BaseConnection|BaseBuilder query(string $sql, $binds = null, bool $setEscapeFlags = true, string $queryClass = 'CodeIgniter\\Database\\Query')
- * @method static BaseConnection|BaseBuilder simpleQuery(string $sql)
- * @method static BaseConnection|BaseBuilder transOff()
- * @method static BaseConnection|BaseBuilder transStrict(bool $mode = true)
- * @method static BaseConnection|BaseBuilder transStart(bool $test_mode = false)
- * @method static BaseConnection|BaseBuilder transComplete()
- * @method static BaseConnection|BaseBuilder transStatus()
- * @method static BaseConnection|BaseBuilder transBegin(bool $test_mode = false)
- * @method static BaseConnection|BaseBuilder transCommit()
- * @method static BaseConnection|BaseBuilder transRollback()
- * @method static BaseConnection|BaseBuilder prepare(Closure $func, array $options = [])
- * @method static BaseConnection|BaseBuilder getLastQuery()
- * @method static BaseConnection|BaseBuilder showLastQuery()
- * @method static BaseConnection|BaseBuilder getConnectStart()
- * @method static BaseConnection|BaseBuilder getConnectDuration(int $decimals = 6)
- * @method static BaseConnection|BaseBuilder protectIdentifiers($item, bool $prefixSingle = false, bool $protectIdentifiers = null, bool $fieldExists = true)
- * @method static BaseConnection|BaseBuilder escapeIdentifiers($item)
- * @method static BaseConnection|BaseBuilder prefixTable(string $table = '')
- * @method static BaseConnection|BaseBuilder affectedRows()
- * @method static BaseConnection|BaseBuilder escape($str)
- * @method static BaseConnection|BaseBuilder escapeString($str, bool $like = false)
- * @method static BaseConnection|BaseBuilder escapeLikeString($str)
- * @method static BaseConnection|BaseBuilder callFunction(string $functionName, ...$params) : bool
- * @method static BaseConnection|BaseBuilder listTables(bool $constrainByPrefix = false)
- * @method static BaseConnection|BaseBuilder tableExists(string $tableName)
- * @method static BaseConnection|BaseBuilder getFieldNames(string $table)
- * @method static BaseConnection|BaseBuilder fieldExists(string $fieldName, string $tableName)
- * @method static BaseConnection|BaseBuilder getFieldData(string $table)
- * @method static BaseConnection|BaseBuilder getIndexData(string $table)
- * @method static BaseConnection|BaseBuilder getForeignKeyData(string $table)
- * @method static BaseConnection|BaseBuilder disableForeignKeyChecks()
- * @method static BaseConnection|BaseBuilder enableForeignKeyChecks()
- * @method static BaseConnection|BaseBuilder pretend(bool $pretend = true)
- * @method static BaseConnection|BaseBuilder resetDataCache()
- * @method static BaseConnection|BaseBuilder error()
- * @method static BaseConnection|BaseBuilder insertID()
- * @method static BaseConnection|BaseBuilder __get(string $key)
- * @method static BaseConnection|BaseBuilder __isset(string $key)
- * @method static BaseConnection|BaseBuilder table(string $tableName)
+ * @method static BaseBuilder|null setInsertBatch($key, string $value = '', bool $escape = null)
+ * @method static string getCompiledInsert(bool $reset = true)
+ * @method static BaseResult|Query|false insert(array $set = null, bool $escape = null)
+ * @method static BaseResult|Query|string|false replace(array $set = null)
+ * @method static string getCompiledUpdate(bool $reset = true)
+ * @method static boolean update(array $set = null, $where = null, int $limit = null)
+ * @method static mixed updateBatch(array $set = null, string $index = null, int $batchSize = 100)
+ * @method static BaseBuilder|null setUpdateBatch($key, string $index = '', bool $escape = null)
+ * @method static boolean emptyTable()
+ * @method static boolean truncate()
+ * @method static string getCompiledDelete(bool $reset = true)
+ * @method static mixed delete($where = '', int $limit = null, bool $reset_data = true)
+ * @method static boolean increment(string $column, int $value = 1)
+ * @method static boolean decrement(string $column, int $value = 1)
+ * @method static BaseBuilder resetQuery()
+ * @method static void close()
+ * @method static mixed persistentConnect()
+ * @method static mixed reconnect()
+ * @method static mixed getConnection(string $alias = null)
+ * @method static mixed setDatabase(string $databaseName)
+ * @method static string getDatabase()
+ * @method static string setPrefix(string $prefix = '')
+ * @method static string getPrefix()
+ * @method static string getPlatform()
+ * @method static string getVersion()
+ * @method static $this setAliasedTables(array $aliases)
+ * @method static $this addTableAlias(string $table)
+ * @method static mixed execute(string $sql)
+ * @method static BaseResult|Query|false query(string $sql, $binds = null, bool $setEscapeFlags = true, string $queryClass = 'CodeIgniter\\Database\\Query')
+ * @method static mixed simpleQuery(string $sql)
+ * @method static void transOff()
+ * @method static $this transStrict(bool $mode = true)
+ * @method static boolean transStart(bool $test_mode = false)
+ * @method static boolean transComplete()
+ * @method static boolean transStatus()
+ * @method static boolean transBegin(bool $test_mode = false)
+ * @method static boolean transCommit()
+ * @method static boolean transRollback()
+ * @method static BaseBuilder table($tableName)
+ * @method static BasePreparedQuery|null prepare(Closure $func, array $options = [])
+ * @method static mixed getLastQuery()
+ * @method static string showLastQuery()
+ * @method static float|null getConnectStart()
+ * @method static string getConnectDuration(int $decimals = 6)
+ * @method static string|array protectIdentifiers($item, bool $prefixSingle = false, bool $protectIdentifiers = null, bool $fieldExists = true)
+ * @method static mixed escapeIdentifiers($item)
+ * @method static string prefixTable(string $table = '')
+ * @method static mixed affectedRows()
+ * @method static mixed escape($str)
+ * @method static string|string[] escapeString($str, bool $like = false)
+ * @method static string|string[] escapeLikeString($str)
+ * @method static boolean callFunction(string $functionName, ...$params): bool
+ * @method static boolean|array listTables(bool $constrainByPrefix = false)
+ * @method static boolean tableExists(string $tableName)
+ * @method static array|false getFieldNames(string $table)
+ * @method static boolean fieldExists(string $fieldName, string $tableName)
+ * @method static array|false getFieldData(string $table)
+ * @method static array|false getIndexData(string $table)
+ * @method static array|false getForeignKeyData(string $table)
+ * @method static mixed disableForeignKeyChecks()
+ * @method static mixed enableForeignKeyChecks()
+ * @method static $this pretend(bool $pretend = true)
+ * @method static $this resetDataCache()
+ * @method static array error()
+ * @method static int insertID()
  */
 class DB
 {
+    /** @var Database */
+    protected $manager;
+
     /**
-     * Call static base connection.
+     * Create new connection database manager.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->manager = new Database();
+    }
+
+    /**
+     * Get a connection instance from the global manager.
+     *
+     * @param  string|null  $connection
+     * @return BaseConnection
+     */
+    public static function connection($connection = null)
+    {
+        return (new static())->getConnection($connection);
+    }
+
+    /**
+     * Get a registered connection instance.
+     *
+     * @param  string|null  $name
+     * @return BaseConnection
+     */
+    public function getConnection($name = null)
+    {
+        return $this->manager->connect($name);
+    }
+
+    /**
+     * Call static base connection instance.
      *
      * @param $method
-     * @param $argument
+     * @param $arguments
      * @return BaseConnection|BaseBuilder
      */
     public static function __callStatic($method, $arguments)
     {
-        return Database::connect()->$method(...$arguments);
+        return static::connection()->$method(...$arguments);
     }
 }

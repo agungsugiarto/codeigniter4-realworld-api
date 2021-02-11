@@ -10,6 +10,4 @@ class Home extends Controller
             'welcome' => 'CodeIgniter v' . \CodeIgniter\CodeIgniter::CI_VERSION
         ]);
     }
-
-    //--------------------------------------------------------------------
 }

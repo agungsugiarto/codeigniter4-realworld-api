@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Entities\UserEntity;
+use App\Entities\User;
 use App\Models\UserModel;
 use App\Transformers\UserTransformer;
 use CodeIgniter\API\ResponseTrait;
@@ -16,7 +16,7 @@ class UserController extends Controller
     /** @var \App\Models\UserModel */
     protected $user;
 
-    /** @var \App\Entities\UserEntity */
+    /** @var \App\Entities\User */
     protected $entity;
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->entity = new UserEntity();
+        $this->entity = new User();
         $this->user = new UserModel();
     }
 
@@ -70,7 +70,7 @@ class UserController extends Controller
         }
 
         try {
-            $this->user->update($user->id, new UserEntity($this->request->getRawInput()));
+            $this->user->update($user->id, new User($this->request->getRawInput()));
         } catch (Exception $e) {
             return $this->fail($e->getMessage());
         }

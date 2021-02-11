@@ -2,8 +2,7 @@
 
 namespace Config;
 
-use App\Libraries\Auth\AuthenticationService;
-use CodeIgniter\Config\Services as CoreServices;
+use CodeIgniter\Config\BaseService;
 
 /**
  * Services Configuration file.
@@ -18,6 +17,15 @@ use CodeIgniter\Config\Services as CoreServices;
  * method format you should use for your service methods. For more examples,
  * see the core Services file at system/Config/Services.php.
  */
-class Services extends CoreServices
+class Services extends BaseService
 {
+    // public static function example($getShared = true)
+    // {
+    //     if ($getShared)
+    //     {
+    //         return static::getSharedInstance('example');
+    //     }
+    //
+    //     return new \CodeIgniter\Example();
+    // }
 }

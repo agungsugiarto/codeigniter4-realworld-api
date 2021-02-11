@@ -12,22 +12,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/agungsugiarto/codeigniter4-authentication.git",
-                "reference": "075a2d3aa1ac00f2fe7c623346761a28ee111f9a"
+                "reference": "ee7f65abcf1662fd3f17e898577263a09caacb4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-authentication/zipball/075a2d3aa1ac00f2fe7c623346761a28ee111f9a",
-                "reference": "075a2d3aa1ac00f2fe7c623346761a28ee111f9a",
+                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-authentication/zipball/ee7f65abcf1662fd3f17e898577263a09caacb4e",
+                "reference": "ee7f65abcf1662fd3f17e898577263a09caacb4e",
                 "shasum": ""
             },
             "require": {
-                "codeigniter4/framework": "^4.0",
-                "fakerphp/faker": "^1.13",
-                "php": "^7.2"
+                "codeigniter4/framework": "^4.1",
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
+                "fakerphp/faker": "^1.13",
                 "laminas/laminas-coding-standard": "^2.1",
-                "phpunit/phpunit": "^8.5"
+                "phpunit/phpunit": "^9.1"
             },
             "default-branch": true,
             "type": "library",
@@ -38,8 +38,11 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Fluent\\Auth\\": "src"
-                }
+                    "Fluent\\Auth\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/auth_helper.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -53,7 +56,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "provides an API for authentication and includes concrete authentication adapters for common use case scenarios",
+            "description": "Provides an API for authentication and includes concrete authentication adapters for common use case scenarios",
             "keywords": [
                 "Authentication",
                 "auth",
@@ -63,33 +66,39 @@
                 "issues": "https://github.com/agungsugiarto/codeigniter4-authentication/issues",
                 "source": "https://github.com/agungsugiarto/codeigniter4-authentication/tree/master"
             },
-            "time": "2021-01-14T14:15:41+00:00"
+            "funding": [
+                {
+                    "url": "https://saweria.co/agungsugiarto",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-02-11T14:34:50+00:00"
         },
         {
             "name": "agungsugiarto/codeigniter4-cors",
-            "version": "v1.0.4",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/agungsugiarto/codeigniter4-cors.git",
-                "reference": "33ad805cf198cb2b26fb8ccb87aafb5d33c82abd"
+                "reference": "9393f12b0092241fcc9b1d06a7eb3a86a040a01a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-cors/zipball/33ad805cf198cb2b26fb8ccb87aafb5d33c82abd",
-                "reference": "33ad805cf198cb2b26fb8ccb87aafb5d33c82abd",
+                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-cors/zipball/9393f12b0092241fcc9b1d06a7eb3a86a040a01a",
+                "reference": "9393f12b0092241fcc9b1d06a7eb3a86a040a01a",
                 "shasum": ""
             },
             "require": {
-                "codeigniter4/framework": "^4.0",
-                "php": "^7.2"
+                "codeigniter4/framework": "^4.1",
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5"
+                "phpunit/phpunit": "^9.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
@@ -120,31 +129,31 @@
             ],
             "support": {
                 "issues": "https://github.com/agungsugiarto/codeigniter4-cors/issues",
-                "source": "https://github.com/agungsugiarto/codeigniter4-cors/tree/v1.0.4"
+                "source": "https://github.com/agungsugiarto/codeigniter4-cors/tree/v1.1.1"
             },
-            "time": "2020-09-06T02:35:24+00:00"
+            "time": "2021-02-01T15:11:59+00:00"
         },
         {
             "name": "agungsugiarto/codeigniter4-repository",
-            "version": "v1.0.10",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/agungsugiarto/codeigniter4-repository.git",
-                "reference": "0f6a66ae69b450aee59c0d98a1b3c2edfd0863ea"
+                "reference": "1a60f25e4340b17b81219ad3dc0110c618963058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-repository/zipball/0f6a66ae69b450aee59c0d98a1b3c2edfd0863ea",
-                "reference": "0f6a66ae69b450aee59c0d98a1b3c2edfd0863ea",
+                "url": "https://api.github.com/repos/agungsugiarto/codeigniter4-repository/zipball/1a60f25e4340b17b81219ad3dc0110c618963058",
+                "reference": "1a60f25e4340b17b81219ad3dc0110c618963058",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2"
+                "codeigniter4/framework": "^4.1",
+                "php": "^7.3 || 8.0"
             },
             "require-dev": {
-                "codeigniter4/framework": "^4.0",
-                "fzaninotto/faker": "^1.9",
-                "phpunit/phpunit": "^8.5"
+                "fakerphp/faker": "^1.13",
+                "phpunit/phpunit": "^9.1"
             },
             "type": "library",
             "autoload": {
@@ -175,22 +184,22 @@
             ],
             "support": {
                 "issues": "https://github.com/agungsugiarto/codeigniter4-repository/issues",
-                "source": "https://github.com/agungsugiarto/codeigniter4-repository/tree/v1.0.10"
+                "source": "https://github.com/agungsugiarto/codeigniter4-repository/tree/v1.1.0"
             },
-            "time": "2020-09-28T10:54:10+00:00"
+            "time": "2021-02-01T15:25:00+00:00"
         },
         {
             "name": "codeigniter4/framework",
-            "version": "v4.0.4",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "1edcf84f77ff794640fddbfc59a10a024cd15b50"
+                "reference": "ddc18eb2f42a17a51347c4c25cce9d2aaebcb718"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/1edcf84f77ff794640fddbfc59a10a024cd15b50",
-                "reference": "1edcf84f77ff794640fddbfc59a10a024cd15b50",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/ddc18eb2f42a17a51347c4c25cce9d2aaebcb718",
+                "reference": "ddc18eb2f42a17a51347c4c25cce9d2aaebcb718",
                 "shasum": ""
             },
             "require": {
@@ -200,22 +209,28 @@
                 "ext-mbstring": "*",
                 "kint-php/kint": "^3.3",
                 "laminas/laminas-escaper": "^2.6",
-                "php": ">=7.2",
+                "php": "^7.3||^8.0",
                 "psr/log": "^1.1"
             },
             "require-dev": {
                 "codeigniter4/codeigniter4-standard": "^1.0",
-                "fzaninotto/faker": "^1.9@dev",
-                "mikey179/vfsstream": "1.6.*",
-                "phpunit/phpunit": "^8.5",
+                "fakerphp/faker": "^1.9",
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^9.1",
                 "predis/predis": "^1.1",
                 "squizlabs/php_codesniffer": "^3.3"
+            },
+            "suggest": {
+                "ext-fileinfo": "Improves mime type detection for files"
             },
             "type": "project",
             "autoload": {
                 "psr-4": {
                     "CodeIgniter\\": "system/"
-                }
+                },
+                "exclude-from-classmap": [
+                    "**/Database/Migrations/**"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -228,7 +243,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2020-07-16T03:44:28+00:00"
+            "time": "2021-02-01T18:41:38+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -1412,16 +1427,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.13",
+            "version": "8.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8e86be391a58104ef86037ba8a846524528d784e"
+                "reference": "c25f79895d27b6ecd5abfa63de1606b786a461a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e86be391a58104ef86037ba8a846524528d784e",
-                "reference": "8e86be391a58104ef86037ba8a846524528d784e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c25f79895d27b6ecd5abfa63de1606b786a461a3",
+                "reference": "c25f79895d27b6ecd5abfa63de1606b786a461a3",
                 "shasum": ""
             },
             "require": {
@@ -1493,7 +1508,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.13"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.14"
             },
             "funding": [
                 {
@@ -1505,7 +1520,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-01T04:53:52+00:00"
+            "time": "2021-01-17T07:37:30+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -2480,16 +2495,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.2.1",
+            "version": "v5.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "13e7e882eaa55863faa7c4ad7c60f12f1a8b5089"
+                "reference": "72ca213014a92223a5d18651ce79ef441c12b694"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/13e7e882eaa55863faa7c4ad7c60f12f1a8b5089",
-                "reference": "13e7e882eaa55863faa7c4ad7c60f12f1a8b5089",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/72ca213014a92223a5d18651ce79ef441c12b694",
+                "reference": "72ca213014a92223a5d18651ce79ef441c12b694",
                 "shasum": ""
             },
             "require": {
@@ -2505,7 +2520,7 @@
                 "ext-iconv": "*",
                 "symfony/console": "^4.4|^5.0",
                 "symfony/process": "^4.4|^5.0",
-                "twig/twig": "^2.4|^3.0"
+                "twig/twig": "^2.13|^3.0.4"
             },
             "suggest": {
                 "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
@@ -2541,14 +2556,14 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony mechanism for exploring and dumping PHP variables",
+            "description": "Provides mechanisms for walking through any arbitrary PHP variable",
             "homepage": "https://symfony.com",
             "keywords": [
                 "debug",
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.2.1"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.2.3"
             },
             "funding": [
                 {
@@ -2564,7 +2579,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-16T17:02:19+00:00"
+            "time": "2021-01-27T10:15:41+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -2621,12 +2636,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -2664,8 +2679,8 @@
                 "validate"
             ],
             "support": {
-                "issues": "https://github.com/webmozart/assert/issues",
-                "source": "https://github.com/webmozart/assert/tree/master"
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
             },
             "time": "2020-07-08T17:02:28+00:00"
         }

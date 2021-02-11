@@ -3,7 +3,6 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
-use CodeIgniter\Images\Handlers\BaseHandler;
 use CodeIgniter\Images\Handlers\GDHandler;
 use CodeIgniter\Images\Handlers\ImageMagickHandler;
 
@@ -27,7 +26,7 @@ class Images extends BaseConfig
     /**
      * The available handler classes.
      *
-     * @var BaseHandler[]
+     * @var array<string, string>
      */
     public $handlers = [
         'gd'      => GDHandler::class,

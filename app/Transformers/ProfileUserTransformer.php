@@ -2,12 +2,12 @@
 
 namespace App\Transformers;
 
-use App\Entities\UserEntity;
+use App\Entities\User;
 use League\Fractal\TransformerAbstract;
 
 class ProfileUserTransformer extends TransformerAbstract
 {
-    public function transform(UserEntity $user)
+    public function transform(User $user)
     {
         return [
             'id'        => $user->id,

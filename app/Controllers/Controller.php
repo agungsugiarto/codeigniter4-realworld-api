@@ -47,7 +47,7 @@ class Controller extends BaseController
      *
      * @var array
      */
-    protected $helpers = ['auth'];
+    protected $helpers = [];
     
     /**
      * {@inheritdoc}

@@ -4,8 +4,6 @@ namespace Config;
 
 use App\Controllers\Home;
 
-use function file_exists;
-
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 

@@ -2,14 +2,8 @@
 
 namespace Config;
 
-use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
-
-use function ini_get;
-use function ob_end_flush;
-use function ob_get_level;
-use function ob_start;
 
 /*
  * --------------------------------------------------------------------
@@ -49,12 +43,8 @@ Events::on('pre_system', function () {
      * --------------------------------------------------------------------
      * If you delete, they will no longer be collected.
      */
-    if (ENVIRONMENT !== 'production') {
+    if (CI_DEBUG) {
         Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
         Services::toolbar()->respond();
-
-        // Events::on('DBQuery', function (Query $query) {
-        //     log_message('info', $query);
-        // });
     }
 });
