@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
 
@@ -48,3 +49,8 @@ Events::on('pre_system', function () {
         Services::toolbar()->respond();
     }
 });
+
+// Event to see what happend in query
+// Events::on('DBQuery', function (Query $query) {
+//     log_message('info', $query->getQuery());
+// });

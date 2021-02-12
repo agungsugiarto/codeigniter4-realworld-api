@@ -47,8 +47,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
      */
     public function getTotal()
     {
-        // TODO: Change to getTotal() on new release version.
-        return $this->paginator->getDetails()['total'];
+        return $this->paginator->getTotal();
     }
 
     /**
