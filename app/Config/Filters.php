@@ -22,10 +22,14 @@ class Filters extends BaseConfig
         'honeypot' => Honeypot::class,
         'cors'     => CorsFilter::class,
         'auth'     => \Fluent\Auth\Filters\AuthenticationFilter::class,
-        'confirm'  => \Fluent\Auth\Filters\ConfirmPasswordFilter::class,
-        'verified' => \Fluent\Auth\Filters\EmailVerifiedFilter::class,
+        'confirm'  => [
+            \Fluent\Auth\Filters\AuthenticationFilter::class,
+            \Fluent\Auth\Filters\ConfirmPasswordFilter::class,
+        ],
+        'guest'    => \Fluent\Auth\Filters\RedirectAuthenticatedFilter::class,
         'throttle' => \Fluent\Auth\Filters\ThrottleFilter::class,
-        'token-optional' => \App\Filters\TokenOptionalFilter::class,
+        'verified' => \Fluent\Auth\Filters\EmailVerifiedFilter::class,
+        'optional' => \App\Filters\TokenOptionalFilter::class,
     ];
 
     /**

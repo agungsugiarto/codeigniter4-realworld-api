@@ -39,10 +39,10 @@ $routes->group('api', function (Routes $routes) {
      */
     $routes->group('articles', function (Routes $routes) {
         
-        $routes->get('/', ArticleController::class . '::index', ['filter' => 'token-optional']);
+        $routes->get('/', ArticleController::class . '::index', ['filter' => 'optional']);
         $routes->get('feed', ArticleController::class . '::feed', ['filter' => 'auth:token']);
         $routes->post('create', ArticleController::class . '::store', ['filter' => 'auth:token']);
-        $routes->get('(:any)/show', ArticleController::class . '::show/$1', ['filter' => 'token-optional']);
+        $routes->get('(:any)/show', ArticleController::class . '::show/$1', ['filter' => 'optional']);
         $routes->put('(:any)/update', ArticleController::class . '::update/$1', ['filter' => 'auth:token']);
         $routes->delete('(:any)/destroy', ArticleController::class . '::destroy/$1', ['filter' => 'auth:token']);
 
