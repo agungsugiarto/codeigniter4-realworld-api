@@ -87,7 +87,7 @@ Run the database seeder and you're done
 - `app/Database/Migrations` - Contains all the database migrations
 - `app/Database/Seeds` - Contains the database seeder
 - `app/Entities` - Contains all the classes as a first-class citizen in it’s database layer
-- `app/Filters` - Contains the JWT auth filter and throttler
+- `app/Filters` - Contains the auth personal access token filter
 - `app/Models` - Contains all the models
 - `app/Repository` - Contains all the repository object
 - `app/Scopes` - Contains all the repository define which fields can be used to scope your queries by setting $searchable property
