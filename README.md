@@ -66,7 +66,7 @@ Run the database seeder and you're done
 
 ## API Specification
 
-> [Full API Spec](https://documenter.getpostman.com/view/1062493/TVYKYvnz)
+> [Full API Spec](https://documenter.getpostman.com/view/1062493/Tz5jdzUL)
 
 ----------
 
@@ -74,7 +74,8 @@ Run the database seeder and you're done
 
 ## Dependencies
 
-- [codeigniter4-authentication](https://github.com/agungsugiarto/codeigniter4-authentication) - For authentication using personal access token
+- [codeigniter4-authentication](https://github.com/agungsugiarto/codeigniter4-authentication) - For authentication
+- [codeigniter4-authentication-jwt](https://github.com/agungsugiarto/codeigniter4-authentication-jwt) - For authentication using jwt.
 - [codeigniter4-cors](https://github.com/agungsugiarto/codeigniter4-cors) - For handling Cross-Origin Resource Sharing (CORS)
 - [codeigniter4-repository](https://github.com/agungsugiarto/codeigniter4-repository) - For Implementation of repository pattern for CodeIgniter 4
 - [league/fractal](https://github.com/thephpleague/fractal) - For provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON
@@ -126,10 +127,13 @@ Refer the [api specification](#api-specification) for more info.
  
 # Authentication
  
-This applications uses Personal Access Token to handle authentication. The token is passed with each request using the `Authorization` header with `Token` or with query string `?token` scheme. The token authentication filter handles the validation and authentication of the token. Please check the following sources to learn more about `Access Token`.
+This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication filter handles the validation and authentication of the token. Please check the following sources to learn more about JWT.
  
-- https://en.wikipedia.org/wiki/Access_token
+- https://jwt.io/introduction/
+- https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
 - https://github.com/agungsugiarto/codeigniter4-authentication
+- https://github.com/agungsugiarto/codeigniter4-authentication-jwt
+
 
 ----------
 
