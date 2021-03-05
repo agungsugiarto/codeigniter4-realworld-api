@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = auth('token')->user();
+        $user = auth('api')->user();
 
         return $this->fractalItem($user, new UserTransformer(), 'user');
     }
@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function update()
     {
-        $user = auth('token')->user();
+        $user = auth('api')->user();
 
         if (is_null($user)) {
             return $this->fail('User not found');

@@ -178,7 +178,7 @@ class ArticleController extends Controller
         }
 
         $this->article
-            ->where('user_id', auth('token')->user()->id)
+            ->where('user_id', auth('api')->user()->id)
             ->where('slug', $slug)
             ->delete();
         
@@ -233,7 +233,7 @@ class ArticleController extends Controller
     {
         return $this->repository
             ->where('slug', $slug)
-            ->where('user_id', auth('token')->user()->id)
+            ->where('user_id', auth('api')->user()->id)
             ->first();
     }
 }

@@ -20,14 +20,6 @@ class UserModel extends Model implements UserProviderInterface
     protected $table = 'users';
 
     /**
-     * Skip the model's validation. Used in conjunction with skipValidation()
-     * to skip data validation for any future calls.
-     *
-     * @var boolean
-     */
-    protected $skipValidation = true;
-
-    /**
      * If this model should use "softDeletes" and
      * simply set a date when rows are deleted, or
      * do hard deletes.

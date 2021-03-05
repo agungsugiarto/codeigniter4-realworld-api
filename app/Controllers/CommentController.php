@@ -71,7 +71,7 @@ class CommentController extends Controller
         }
 
         $commentID = $this->repository->create([
-            'user_id'    => auth('token')->user()->id,
+            'user_id'    => auth('api')->user()->id,
             'article_id' => $article->id,
             'body'       => $request->body
         ]);
@@ -103,7 +103,7 @@ class CommentController extends Controller
 
         $this->repository
             ->findWhere([
-                'user_id'    => auth('token')->user()->id,
+                'user_id'    => auth('api')->user()->id,
                 'article_id' => $article->id
             ])
             ->destroy($id);

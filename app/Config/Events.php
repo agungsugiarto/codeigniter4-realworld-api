@@ -2,7 +2,6 @@
 
 namespace Config;
 
-use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
 
@@ -50,7 +49,18 @@ Events::on('pre_system', function () {
     }
 });
 
-// Event to see what happend in query
-// Events::on('DBQuery', function (Query $query) {
-//     log_message('info', $query->getQuery());
-// });
+/**
+ * --------------------------------------------------------------------
+ * CodeIgniter4 Authentication Listeners.
+ * --------------------------------------------------------------------
+ * This event will be dispatch to send reset password and verify email,
+ * you are free to implement this dispatcher, example using
+ * twilio service to send sms.
+ */
+Events::on(\Fluent\Auth\Contracts\VerifyEmailInterface::class, function ($email) {
+    (new \App\Notifications\VerificationNotification($email))->send();
+});
+
+Events::on(\Fluent\Auth\Contracts\ResetPasswordInterface::class, function ($email, $token) {
+    (new \App\Notifications\ResetPasswordNotification($email, $token))->send();
+});

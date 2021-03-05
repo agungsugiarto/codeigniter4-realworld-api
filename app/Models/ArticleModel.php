@@ -41,7 +41,7 @@ class ArticleModel extends Model
     public function insertArticle(object $request)
     {
         return $this->insert([
-            'user_id'     => auth('token')->user()->id,
+            'user_id'     => auth('api')->user()->id,
             'title'       => $request->title,
             'slug'        => url_title($request->title, '-', true),
             'body'        => $request->body,
@@ -107,7 +107,7 @@ class ArticleModel extends Model
     {
         $instance = $this->db->table('favorites')
             ->where([
-                'user_id'    => auth('token')->user()->id,
+                'user_id'    => auth('api')->user()->id,
                 'article_id' => $attributes['article_id'],
             ])
             ->get()
@@ -116,7 +116,7 @@ class ArticleModel extends Model
         if (is_null($instance)) {
             return $this->db->table('favorites')
                 ->insert([
-                    'user_id'    => auth('token')->user()->id,
+                    'user_id'    => auth('api')->user()->id,
                     'article_id' => $attributes['article_id'],
                     'created_at' => Time::now(),
                     'updated_at' => Time::now(),
@@ -136,7 +136,7 @@ class ArticleModel extends Model
     {
         return $this->db->table('favorites')
             ->where([
-                'user_id'    => auth('token')->user()->id,
+                'user_id'    => auth('api')->user()->id,
                 'article_id' => $attributes['article_id'],
             ])
             ->delete();

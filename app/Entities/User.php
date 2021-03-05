@@ -13,11 +13,13 @@ use Fluent\Auth\Traits\AuthenticatableTrait;
 use Fluent\Auth\Traits\CanResetPasswordTrait;
 use Fluent\Auth\Traits\HasAccessTokensTrait;
 use Fluent\Auth\Traits\MustVerifyEmailTrait;
+use Fluent\JWTAuth\Contracts\JWTSubjectInterface;
 
 class User extends Entity implements
     AuthenticatorInterface,
     HasAccessTokensInterface,
     ResetPasswordInterface,
+    JWTSubjectInterface,
     VerifyEmailInterface
 {
     use AuthenticatableTrait;
@@ -48,6 +50,22 @@ class User extends Entity implements
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    /**
      * Check if the user is following the user with the provided id.
      *
      * @param int $userID
@@ -56,7 +74,7 @@ class User extends Entity implements
     public function isFollowing()
     {
         return DB::table('follows')
-            ->where('follower_id', auth('token')->user()->id)
+            ->where('follower_id', auth('api')->user()->id)
             ->where('followed_id', $this->id)
             ->countAllResults() !== 0;
     }

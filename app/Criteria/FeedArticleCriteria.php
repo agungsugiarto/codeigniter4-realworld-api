@@ -18,7 +18,7 @@ class FeedArticleCriteria implements CriterionInterface
                 return $builder
                     ->select('followed_id')
                     ->from('follows')
-                    ->where('follower_id', auth('token')->user()->id);
+                    ->where('follower_id', auth('api')->user()->id);
             });
     }
 }

@@ -16,7 +16,7 @@ class CommentEntity extends Entity
     public function isFollowing()
     {
         return DB::table('follows')
-            ->where('follower_id', auth('token')->user()->id)
+            ->where('follower_id', auth('api')->user()->id)
             ->where('followed_id', $this->id)
             ->countAllResults() !== 0;
     }

@@ -14,7 +14,7 @@ class TokenOptionalFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (Auth::guard('token')->check()) {
+        if (Auth::guard('api')->check()) {
             return $request;
         }
     }

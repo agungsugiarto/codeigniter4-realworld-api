@@ -5,7 +5,6 @@ namespace Config;
 use Fluent\Auth\Adapters\SessionAdapter;
 use Fluent\Auth\Adapters\TokenAdapter;
 use App\Models\UserModel;
-use Fluent\Auth\Passwords\PasswordResetRepository;
 
 class Auth extends \Fluent\Auth\Config\Auth
 {
@@ -14,22 +13,21 @@ class Auth extends \Fluent\Auth\Config\Auth
      * Authentication Defaults
      * --------------------------------------------------------------------------
      *
-     * This option controls the default authentication "adapter".
-     * You may change these defaults as required,
-     * but they're a perfect start for
-     * most applications.
+     * This option controls the default authentication "guard" and password
+     * reset option for your application. You may change these defaults
+     * as required, but they're a perfect start for most applications.
      *
      * @var array
      */
     public $defaults = [
-        'guard'     => 'web',
-        'provider'  => 'users',
-        'passwords' => 'users',
+        'guard'    => 'web',
+        'provider' => 'users',
+        'password' => 'users',
     ];
 
     /**
      * --------------------------------------------------------------------------
-     * Authentication Adapters
+     * Authentication Guards
      * --------------------------------------------------------------------------
      *
      * Next, you may define every authentication adapter for your application.
@@ -53,7 +51,10 @@ class Auth extends \Fluent\Auth\Config\Auth
             'driver'   => TokenAdapter::class,
             'provider' => 'users',
         ],
-        // etc your implementation
+        'api' => [
+            'driver'   => 'jwt',
+            'provider' => 'users',
+        ],
     ];
 
     /**
@@ -79,8 +80,9 @@ class Auth extends \Fluent\Auth\Config\Auth
             'table'  => UserModel::class,
         ],
         'database' => [
-            'driver' => 'connection',
-            'table'  => 'users',
+            'connection' => 'default',
+            'driver'     => 'connection',
+            'table'      => 'users',
         ],
     ];
 
@@ -101,10 +103,11 @@ class Auth extends \Fluent\Auth\Config\Auth
      */
     public $passwords = [
         'users' => [
-            'provider' => 'users',
-            'table'    => PasswordResetRepository::class,
-            'expire'   => 60,
-            'throttle' => 60,
+            'provider'   => 'users',
+            'connection' => 'default',
+            'table'      => 'auth_password_resets',
+            'expire'     => 60,
+            'throttle'   => 60,
         ],
     ];
 

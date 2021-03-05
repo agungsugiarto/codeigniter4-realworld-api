@@ -57,14 +57,7 @@ class AuthenticationController extends Controller
 
         $this->user->save($this->entity);
 
-        $user = $this->user->find($this->user->getInsertID());
-
-        Auth::guard('token')->login($user);
-
-        $this->entity->token = Auth::guard('token')
-            ->user()
-            ->generateAccessToken($request->email)
-            ->raw_token;
+        $this->entity->token = Auth::guard('api')->tokenById($this->user->getInsertID());
 
         return $this->fractalItem($this->entity, new UserTransformer(), 'user');
     }
@@ -91,25 +84,13 @@ class AuthenticationController extends Controller
 
         $credentials = ['email' => $request->email, 'password' => $request->password];
 
-        // check user credentials
-        if (Auth::validate($credentials)) {
-            // get user from request.
-            $user = Auth::guard('token')->getProvider()->findByCredentials([
-                'email' => $request->email,
-            ]);
-
-            // login this user.
-            Auth::guard('token')->login($user);
-
-            // revoke all access token first.
-            $user->revokeAllAccessTokens();
-
-            // generate with new token.
-            $user->token = $user->generateAccessToken($request->email)->raw_token;
-
-            return $this->fractalItem($user, new UserTransformer(), 'user');
+        if (! $token = Auth::guard('api')->attempt($credentials)) {
+            return $this->fail(lang('Auth.failed'), 401)->setStatusCode(401);
         }
 
-        return $this->fail(lang('Auth.failed'), 401)->setStatusCode(401);
+        $user = Auth::guard('api')->user();
+        $user->token = $token;
+
+        return $this->fractalItem($user, new UserTransformer(), 'user');
     }
 }
