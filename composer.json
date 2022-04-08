@@ -10,7 +10,7 @@
         "agungsugiarto/codeigniter4-authentication-jwt": "1.x-dev",
         "agungsugiarto/codeigniter4-cors": "^2.0",
         "agungsugiarto/codeigniter4-repository": "^1.0",
-        "codeigniter4/framework": "^4.0",
+        "codeigniter4/framework": "^4.1",
         "fakerphp/faker": "^1.10",
         "league/fractal": "^0.19.2"
     },

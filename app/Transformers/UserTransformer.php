@@ -16,8 +16,8 @@ class UserTransformer extends TransformerAbstract
         return [
             'id'            => $user->id,
             'access_token'  => [
-                'token'      => $user->token ?? null,
-                'token_type' => 'bearer' ?? null,
+                'token'      => $user->token ?? auth('api')->getToken()->__toString() ?? null,
+                'token_type' => 'bearer',
                 'expires_in' => Auth::guard('api')->factory()->getTTL() * 60 ?? null,
             ],
             'email'    => $user->email,

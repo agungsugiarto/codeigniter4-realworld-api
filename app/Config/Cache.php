@@ -66,7 +66,7 @@ class Cache extends BaseConfig
      *    array('q') = Enabled, but only take into account the specified list
      *                 of query parameters.
      *
-     * @var boolean|string[]
+     * @var bool|string[]
      */
     public $cacheQueryString = false;
 
@@ -84,12 +84,41 @@ class Cache extends BaseConfig
 
     /**
      * --------------------------------------------------------------------------
+     * Default TTL
+     * --------------------------------------------------------------------------
+     *
+     * The default number of seconds to save items when none is specified.
+     *
+     * WARNING: This is not used by framework handlers where 60 seconds is
+     * hard-coded, but may be useful to projects and modules. This will replace
+     * the hard-coded value in a future release.
+     *
+     * @var int
+     */
+    public $ttl = 60;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Reserved Characters
+     * --------------------------------------------------------------------------
+     *
+     * A string of reserved characters that will not be allowed in keys or tags.
+     * Strings that violate this restriction will cause handlers to throw.
+     * Default: {}()/\@:
+     * Note: The default set is required for PSR-6 compliance.
+     *
+     * @var string
+     */
+    public $reservedCharacters = '{}()/\@:';
+
+    /**
+     * --------------------------------------------------------------------------
      * File settings
      * --------------------------------------------------------------------------
      * Your file storage preferences can be specified below, if you are using
      * the File driver.
      *
-     * @var array<string, string|int|null>
+     * @var array<string, int|string|null>
      */
     public $file = [
         'storePath' => WRITEPATH . 'cache/',
@@ -105,7 +134,7 @@ class Cache extends BaseConfig
      *
      * @see https://codeigniter.com/user_guide/libraries/caching.html#memcached
      *
-     * @var array<string, string|int|boolean>
+     * @var array<string, boolean|int|string>
      */
     public $memcached = [
         'host'   => '127.0.0.1',
@@ -121,7 +150,7 @@ class Cache extends BaseConfig
      * Your Redis server can be specified below, if you are using
      * the Redis or Predis drivers.
      *
-     * @var array<string, string|int|null>
+     * @var array<string, int|string|null>
      */
     public $redis = [
         'host'     => '127.0.0.1',

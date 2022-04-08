@@ -47,6 +47,18 @@ class Toolbar extends BaseConfig
 
     /**
      * --------------------------------------------------------------------------
+     * Collect Var Data
+     * --------------------------------------------------------------------------
+     *
+     * If set to false var data from the views will not be colleted. Usefull to
+     * avoid high memory usage when there are lots of data passed to the view.
+     *
+     * @var bool
+     */
+    public $collectVarData = true;
+
+    /**
+     * --------------------------------------------------------------------------
      * Max History
      * --------------------------------------------------------------------------
      *
@@ -54,7 +66,7 @@ class Toolbar extends BaseConfig
      * helping to conserve file space used to store them. You can set it to
      * 0 (zero) to not have any history stored, or -1 for unlimited history.
      *
-     * @var integer
+     * @var int
      */
     public $maxHistory = 20;
 
@@ -82,7 +94,7 @@ class Toolbar extends BaseConfig
      *
      * `$maxQueries` defines the maximum amount of queries that will be stored.
      *
-     * @var integer
+     * @var int
      */
     public $maxQueries = 100;
 }
